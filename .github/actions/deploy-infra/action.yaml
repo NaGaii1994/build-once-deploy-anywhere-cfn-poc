@@ -22,4 +22,4 @@ runs:
         aws cloudformation deploy \
           --stack-name "${{ inputs.stack-prefix }}-ecr-app" \
           --template-file "cfn/templates/ecr-app.yaml" \
-          --parameter-overrides "file:///${{ github.workspace }}/cfn/params/ecr-app.json"
+          --parameter-overrides "cfn/params/ecr-app.json"
