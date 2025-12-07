@@ -26,6 +26,12 @@ jobs:
           aws-region: ap-northeast-1
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
 
+      - name: Replace place holder to allow prod deploy role access staging ecr
+        env:
+          PROD_DEPLOY_ROLE_ARN: ${{ secrets.PROD_DEPLOY_ROLE_ARN }}
+        run: |
+          envsubst < cfn/params/${{ vars.DEPLOY_ACCOUNT_ALIAS }}/ecr-app.json
+
       - name: Deploy Infra
         uses: ./.github/actions/deploy-infra
         with:

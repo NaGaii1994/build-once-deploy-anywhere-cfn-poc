@@ -6,5 +6,9 @@
   {
     "ParameterKey": "Environment",
     "ParameterValue": "stg"
+  },
+  {
+    "ParameterKey": "ProdDeployRoleArn",
+    "ParameterValue": "${PROD_DEPLOY_ROLE_ARN}"
   }
 ]

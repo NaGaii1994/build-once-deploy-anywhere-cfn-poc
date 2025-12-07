@@ -6,6 +6,7 @@ Parameters:
     AllowedValues: [dev, stg, prod]
   ProdDeployRoleArn:
     Type: String
+    NoEcho: true
 
 Conditions:
   IsStgEnv: !Equals [ !Ref Environment, "stg" ]
