@@ -1,0 +1,31 @@
+Parameters:
+  Project:
+    Type: String
+  Environment:
+    Type: String
+    AllowedValues: [dev, stg, prod]
+  ProdDeployRoleArn:
+    Type: String
+
+Conditions:
+  IsStgEnv: !Equals [ !Ref Environment, "stg" ]
+
+Resources:
+  Repository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Sub "${Project}-${Environment}-ecr-app"
+      RepositoryPolicyText:
+        Version: "2012-10-17"
+        Statement:
+          - !If
+            - IsStgEnv
+            - Sid: "AllowProdDeployRolePull"
+              Effect: "Allow"
+              Principal:
+                AWS: !Ref ProdDeployRoleArn
+              Action:
+                - "ecr:GetDownloadUrlForLayer"
+                - "ecr:BatchGetImage"
+                - "ecr:BatchCheckLayerAvailability"
+            - !Ref "AWS::NoValue"
