@@ -16,11 +16,10 @@ Resources:
     Type: AWS::ECR::Repository
     Properties:
       RepositoryName: !Sub "${Project}-${Environment}-ecr-app"
-      RepositoryPolicyText:
-        Version: "2012-10-17"
-        Statement:
-          - !If
-            - IsStgEnv
+      RepositoryPolicyText: !If
+        - IsStgEnv
+        - Version: "2012-10-17"
+          Statement:
             - Sid: "AllowProdDeployRolePull"
               Effect: "Allow"
               Principal:
@@ -29,4 +28,4 @@ Resources:
                 - "ecr:GetDownloadUrlForLayer"
                 - "ecr:BatchGetImage"
                 - "ecr:BatchCheckLayerAvailability"
-            - !Ref "AWS::NoValue"
+        - !Ref "AWS::NoValue"
