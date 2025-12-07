@@ -19,7 +19,8 @@ runs:
     - name: Deploy App ECR Stack
       shell: bash
       run: |
+        aws --version
         aws cloudformation deploy \
           --stack-name "${{ inputs.stack-prefix }}-ecr-app" \
           --template-file "cfn/templates/ecr-app.yaml" \
-          --parameter-overrides "cfn/params/ecr-app.json"
+          --parameter-overrides "file://cfn/params/${{ inputs.environment }}/ecr-app.json"
