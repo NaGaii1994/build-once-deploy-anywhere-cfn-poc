@@ -1,4 +1,4 @@
-name: Deploy to Develop
+name: Deploy Infra to Develop
 
 on:
   workflow_dispatch:
@@ -7,8 +7,8 @@ env:
   PROJECT_NAME: build-once
 
 jobs:
-  deploy-dev:
-    name: deploy-dev
+  deploy-infra-dev:
+    name: deploy-infra-dev
     runs-on: ubuntu-latest
     environment:
       name: dev
