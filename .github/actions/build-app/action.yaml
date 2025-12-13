@@ -1,6 +1,15 @@
 name: 'Build App'
 description: 'Build App'
 
+inputs:
+  aws-account-id:
+    description: 'AWS Account Id to push'
+    required: true
+
+  aws-region:
+    description: 'AWS Region to push'
+    required: true
+
 runs:
   using: 'composite'
   steps:
@@ -13,6 +22,6 @@ runs:
     - name: Build
       uses: docker/build-push-action@v6
       with:
-        push: false
+        push: true
         context: ./app
-        tags: app:latest
+        tags: ${{ inputs.aws-account-id }}.dkr.ecr.${{ inputs.aws-region }}.amazonaws.com/ecr-test-repository:latest
