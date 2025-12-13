@@ -30,7 +30,7 @@ jobs:
         env:
           PROD_DEPLOY_ROLE_ARN: ${{ secrets.PROD_DEPLOY_ROLE_ARN }}
         run: |
-          envsubst < cfn/params/${{ vars.DEPLOY_ACCOUNT_ALIAS }}/ecr-app.json
+          envsubst < cfn/params/${{ vars.DEPLOY_ACCOUNT_ALIAS }}/ecr-app.json > temp.json && mv temp.json cfn/params/stg/ecr-app.json
 
       - name: Deploy Infra
         uses: ./.github/actions/deploy-infra
